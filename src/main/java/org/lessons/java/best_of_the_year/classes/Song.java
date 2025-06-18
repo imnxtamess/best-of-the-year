@@ -1,6 +1,6 @@
 package org.lessons.java.best_of_the_year.classes;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Song extends Media {
 
@@ -8,7 +8,7 @@ public class Song extends Media {
 
   // ; Constructor
 
-  public Song(int id, String title, String author, ArrayList<String> genres, int rating, String album) {
+  public Song(int id, String title, String author, HashSet<String> genres, int rating, String album) {
     super(id, title, author, genres, rating);
     this.album = album;
   }

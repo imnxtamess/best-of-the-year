@@ -1,16 +1,16 @@
 package org.lessons.java.best_of_the_year.classes;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Movie extends Media {
 
   private String description;
-  private ArrayList<String> cast;
+  private HashSet<String> cast;
 
   // ; Constructor
 
-  public Movie(int id, String title, String author, ArrayList<String> genres, int rating, String description,
-      ArrayList<String> cast) {
+  public Movie(int id, String title, String author, HashSet<String> genres, int rating, String description,
+      HashSet<String> cast) {
     super(id, title, author, genres, rating);
     this.description = description;
     this.cast = cast;
@@ -19,11 +19,11 @@ public class Movie extends Media {
 
   // , Getters
 
-  public String getDescritpion() {
+  public String getDescription() {
     return this.description;
   }
 
-  public ArrayList<String> getCast() {
+  public HashSet<String> getCast() {
     return this.cast;
   }
 
@@ -33,7 +33,7 @@ public class Movie extends Media {
     this.description = description;
   }
 
-  public void setCast(ArrayList<String> cast) {
+  public void setCast(HashSet<String> cast) {
     this.cast = cast;
   }
 

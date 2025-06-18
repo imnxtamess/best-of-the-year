@@ -1,68 +1,64 @@
 package org.lessons.java.best_of_the_year.controller;
 
-import java.util.ArrayList;
-import java.util.Comparator;
+import java.util.HashSet;
 
 import org.lessons.java.best_of_the_year.classes.Movie;
 import org.lessons.java.best_of_the_year.classes.Song;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/")
 public class HomeController {
 
-  @GetMapping("/")
-  public String home(Model model) {
-
-    model.addAttribute("name", "Davide");
-
-    return "home";
-  }
-
   // Genres
 
-  ArrayList<String> inceptionGenres = new ArrayList<>();
-  ArrayList<String> interstellarGenres = new ArrayList<>();
-  ArrayList<String> tenetGenres = new ArrayList<>();
-  ArrayList<String> badMovieGenres = new ArrayList<>();
-  ArrayList<String> paradiseCityGenres = new ArrayList<>();
-  ArrayList<String> boysDontCryGenres = new ArrayList<>();
-  ArrayList<String> backInBlackGenres = new ArrayList<>();
-  ArrayList<String> terribleSongGenres = new ArrayList<>();
+  HashSet<String> inceptionGenres = new HashSet<>();
+  HashSet<String> interstellarGenres = new HashSet<>();
+  HashSet<String> tenetGenres = new HashSet<>();
+  HashSet<String> badMovieGenres = new HashSet<>();
+  HashSet<String> paradiseCityGenres = new HashSet<>();
+  HashSet<String> boysDontCryGenres = new HashSet<>();
+  HashSet<String> backInBlackGenres = new HashSet<>();
+  HashSet<String> terribleSongGenres = new HashSet<>();
 
   // Cast
 
-  ArrayList<String> inceptionCast = new ArrayList<>();
-  ArrayList<String> interstellarCast = new ArrayList<>();
-  ArrayList<String> tenetCast = new ArrayList<>();
-  ArrayList<String> badMovieCast = new ArrayList<>();
+  HashSet<String> inceptionCast = new HashSet<>();
+  HashSet<String> interstellarCast = new HashSet<>();
+  HashSet<String> tenetCast = new HashSet<>();
+  HashSet<String> badMovieCast = new HashSet<>();
 
-  // Movies and Songs instantiation
+  HashSet<Movie> movieList = new HashSet<Movie>();
+  HashSet<Movie> topMovies = new HashSet<>();
+  HashSet<Song> songList = new HashSet<Song>();
+  HashSet<Song> topSongs = new HashSet<>();
 
-  Movie inception = new Movie(1, "Inception", "Christopher Nolan", inceptionGenres, 9,
-      "lorem ipsum about dolor", inceptionCast);
-  Movie interstellar = new Movie(2, "Interstellar", "Christoper Nolan", interstellarGenres, 10,
-      "Lorem ipsum in the dolor.. ", interstellarCast);
-  Movie tenet = new Movie(3, "Tenet", "Dennis Villeneuve", tenetGenres, 8, "lorem ipsum future dolor",
-      tenetCast);
-  Movie badMovie = new Movie(4, "superbad", "randomguy", badMovieGenres, 1, "lorem bad dolor", badMovieCast);
+  public HomeController() {
 
-  Song boysDontCry = new Song(5, "Boys Don't Cry", "The Cure", boysDontCryGenres, 9, "Three Imaginary Boys");
+    // Movies and Songs instantiation
 
-  Song paradiseCity = new Song(6, "Paradise City", "Guns N' Roses", paradiseCityGenres, 10,
-      "Appetite For Destruction");
+    Movie inception = new Movie(1, "Inception", "Christopher Nolan", inceptionGenres, 9,
+        "lorem ipsum about dolor", inceptionCast);
+    Movie interstellar = new Movie(2, "Interstellar", "Christoper Nolan", interstellarGenres, 10,
+        "Lorem ipsum in the dolor.. ", interstellarCast);
+    Movie tenet = new Movie(3, "Tenet", "Dennis Villeneuve", tenetGenres, 8, "lorem ipsum future dolor",
+        tenetCast);
+    Movie badMovie = new Movie(4, "superbad", "randomguy", badMovieGenres, 1, "lorem bad dolor", badMovieCast);
 
-  Song backInBlack = new Song(7, "Back In Black", "AC/DC", backInBlackGenres, 9, "Back In Black");
+    Song boysDontCry = new Song(5, "Boys Don't Cry", "The Cure", boysDontCryGenres, 9, "Three Imaginary Boys");
 
-  Song terribleSong = new Song(8, "Terrible Song", "Terrible Author", terribleSongGenres, 1,
-      "Terrible Album.. to be honest");
+    Song paradiseCity = new Song(6, "Paradise City", "Guns N' Roses", paradiseCityGenres, 10,
+        "Appetite For Destruction");
 
-  ArrayList<Movie> movieList = new ArrayList<Movie>();
+    Song backInBlack = new Song(7, "Back In Black", "AC/DC", backInBlackGenres, 9, "Back In Black");
 
-  private ArrayList<Movie> getBestMovies() {
+    Song terribleSong = new Song(8, "Terrible Song", "Terrible Author", terribleSongGenres, 1,
+        "Terrible Album.. to be honest");
+
     inceptionGenres.add("Action");
     inceptionGenres.add("Sci-fi");
     interstellarGenres.add("Sci-fi");
@@ -83,22 +79,6 @@ public class HomeController {
     movieList.add(tenet);
     movieList.add(badMovie);
 
-    ArrayList<Movie> topMovies = new ArrayList<>();
-    for (Movie movie : movieList) {
-
-      if (movie.getRating() >= 8) {
-        topMovies.add(movie);
-      }
-
-    }
-
-    return topMovies;
-
-  }
-
-  ArrayList<Song> songList = new ArrayList<Song>();
-
-  private ArrayList<Song> getBestSongs() {
     boysDontCryGenres.add("Goth");
     boysDontCryGenres.add("Rock");
     paradiseCityGenres.add("Rock");
@@ -112,26 +92,39 @@ public class HomeController {
     songList.add(paradiseCity);
     songList.add(terribleSong);
 
-    ArrayList<Song> topSongs = new ArrayList<>();
+  }
 
+  @GetMapping("/")
+  public String home(Model model) {
+    model.addAttribute("name", "Davide");
+    return "home";
+
+  }
+
+  private HashSet<Movie> getBestMovies() {
+    for (Movie movie : movieList) {
+      if (movie.getRating() >= 8) {
+        topMovies.add(movie);
+      }
+    }
+    return topMovies;
+
+  }
+
+  private HashSet<Song> getBestSongs() {
     for (Song song : songList) {
-
       if (song.getRating() >= 8) {
         topSongs.add(song);
       }
     }
-
-    String songString = topSongs.toString();
-
-    songString.replaceAll("[]", "");
-
     return topSongs;
   }
 
   @RequestMapping("/movies")
   public String movies(Model model) {
 
-    model.addAttribute("bestMovies", getBestMovies().toString());
+    model.addAttribute("bestMovies", getBestMovies());
+    model.addAttribute("id", null);
 
     return "movies";
   }
@@ -139,7 +132,31 @@ public class HomeController {
   @RequestMapping("/songs")
   public String songs(Model model) {
 
-    model.addAttribute("bestSongs", getBestSongs().toString());
+    model.addAttribute("bestSongs", getBestSongs());
+    model.addAttribute("id", null);
+    return "songs";
+  }
+
+  @RequestMapping("/movies/{id}")
+  public String movieById(@PathVariable int id, Model model) {
+    for (Movie movie : movieList) {
+      if (id == movie.getId()) {
+        model.addAttribute("singleMovie", movie);
+      }
+    }
+    model.addAttribute("id", id);
+
+    return "movies";
+  }
+
+  @RequestMapping("/songs/{id}")
+  public String songById(@PathVariable int id, Model model) {
+    for (Song song : songList) {
+      if (id == song.getId()) {
+        model.addAttribute("singleSong", song);
+      }
+    }
+    model.addAttribute("id", id);
 
     return "songs";
   }

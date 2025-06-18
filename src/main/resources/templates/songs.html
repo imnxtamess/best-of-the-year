@@ -1,9 +1,51 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Best of the Year</title>
+    <th:block th:replace="~{fragments :: style}"> </th:block>
   </head>
   <body>
-    <h4 th:text="${bestSongs}"></h4>
+    <div class="container mt-5">
+      <div class="table-container border border-dark">
+        <th:block th:insert="~{fragments :: tableHead}"> </th:block>
+        <th:block th:if="${id == null}">
+          <div class="text-center mt-5">
+            <h3 class="mt-3">Best Songs</h3>
+  
+            <div class="d-flex flex-column mt-5">
+              <th:block th:each="song : ${bestSongs}" class="border border-dark">
+                <h2 class="border p-2 border-dark w-50 mx-auto">
+                  <a
+                    th:href="@{'/songs/' + ${song.getId()}}"
+                    th:text="${song.getTitle()}"
+                  ></a>
+                </h2>
+              </th:block>
+            </div>
+        </th:block>
+        <th:block th:unless="${id == null}">
+          <div class="text-center mt-5">
+            <h1 th:text="${singleSong.getTitle()}|"></h1>
+            <ul class="list-unstyled">
+              <li th:text="|Author: ${singleSong.getAuthor()}|">
+              </li>
+              <li th:text="|Album: ${singleSong.getAlbum()}|">
+              </li>
+              <li th:text="|Genres: ${singleSong.getGenres()}|">
+              </li>
+              <li th:text="|Rating: ${singleSong.getRating()}|">
+              </li>
+             
+            </ul>
+            <th:block  th:insert="~{fragments :: homeBtn}"></th:block>
+          </div>
+          
+        </th:block >
+          <th:block th:if="${id == null}" th:insert="~{fragments :: homeBtn}"></th:block>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

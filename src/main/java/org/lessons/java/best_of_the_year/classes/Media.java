@@ -1,19 +1,18 @@
 package org.lessons.java.best_of_the_year.classes;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.HashSet;
 
 public abstract class Media {
 
   private int id;
   private String title;
   private String author;
-  private ArrayList<String> genres;
+  private HashSet<String> genres;
   private int rating;
 
   // ; Constructor
 
-  public Media(int id, String title, String author, ArrayList<String> genres, int rating) {
+  public Media(int id, String title, String author, HashSet<String> genres, int rating) {
 
     this.id = id;
     this.title = title;
@@ -37,7 +36,7 @@ public abstract class Media {
     return this.author;
   }
 
-  public ArrayList<String> getGenres() {
+  public HashSet<String> getGenres() {
     return this.genres;
   }
 
@@ -55,7 +54,7 @@ public abstract class Media {
     this.author = author;
   }
 
-  public void setGenres(ArrayList<String> genres) {
+  public void setGenres(HashSet<String> genres) {
     this.genres = genres;
   }
 

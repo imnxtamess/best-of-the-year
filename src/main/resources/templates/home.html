@@ -1,10 +1,46 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Best of the Year</title>
-    <link rel="stylesheet" th:href="@{/styles/style.css}" />
+    <th:block th:replace="~{fragments :: style}"> </th:block>
   </head>
   <body>
-    <h1 th:text="|Best of the year by ${name}|"></h1>
+    <div class="container mt-5">
+      <div class="table-container border border-dark">
+        <div class="header-container border-bottom border-dark p-3">
+          <div class="d-flex gap-5">
+            <div class="d-flex justify-content-center align-items-center">
+              <div class=""><h5>Best of</h5></div>
+            </div>
+            <div class="col">
+              <div class="d-flex gap-3">
+                <button class="btn btn-primary">
+                  <a th:href="@{/movies}">Movies</a>
+                </button>
+                <button class="btn btn-primary">
+                  <a th:href="@{/songs}">Songs</a>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-5">
+          <h3 class="mt-3" th:text="|Best of by ${name}|"></h3>
+          <div class="card">
+            <div class="card-img-top">
+              <img th:src="@{/hate-css.jpg}" alt="" width="400px" />
+            </div>
+            <div class="card-body">
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Quo
+              mollitia cumque voluptas aperiam! Labore, asperiores. Quasi esse,
+              perspiciatis consequatur ullam dolore quibusdam magnam itaque
+              autem, adipisci aliquam iusto nemo magni?
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
